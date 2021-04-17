@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Featured = () => {
@@ -31,7 +32,18 @@ const Featured = () => {
             <p> High-Back Bench </p>
             <p className="price"> $399.99 </p>
           </div>
-          <button>ALL PRODUCTS</button>
+          <button>
+            <Link
+              to="/products"
+              style={{
+                color: "white",
+                fontSize: "20px",
+                textDecoration: "none",
+              }}
+            >
+              ALL PRODUCTS
+            </Link>
+          </button>
         </div>
         <div className="products">
           <div
@@ -89,9 +101,8 @@ const Wrapper = styled.section`
     padding: 0.5rem 0.7rem;
     border-style: none;
     border-radius: 10px;
-    color: white;
+
     background-color: #996a51;
-    font-size: 20px;
   }
   button:hover {
     color: #916249;

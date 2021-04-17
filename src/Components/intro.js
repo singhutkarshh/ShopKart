@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const Intro = () => {
   return (
@@ -24,9 +25,9 @@ const Textsection = () => {
         omnis corporis doloremque possimus velit! Repudiandae nisi odit, aperiam
         odio ducimus, obcaecati libero et quia tempora excepturi quis alias?
       </h4>
-      <button className="btn" style={{}}>
+      <Link className="btn" to="/products">
         SHOP NOW
-      </button>
+      </Link>
     </Wrapper>
   );
 };
@@ -75,6 +76,7 @@ const Wrapper = styled.section`
     color: white;
     background-color: #996a51;
     font-size: 20px;
+    text-decoration: none;
   }
   .btn:hover {
     color: #916249;

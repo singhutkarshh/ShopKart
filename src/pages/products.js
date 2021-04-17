@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../Components/navbar";
 import { RouteComponent } from "./about";
 import { productData as Data } from "../utils/data";
 import Footer from "../Components/footer";
+
 const Products = () => {
   const [items, setItems] = useState(Data);
   const [search, setSearch] = useState("");
+  const [gridview, setGridView] = useState(true);
   return (
     <>
       <NavBar />
@@ -145,11 +147,90 @@ const Products = () => {
               </button>
             </ul>
           </div>
-          <div className="containerRight">
-            {items.map((item) => {
-              const { image, id, title, price } = item;
-              return <Card image={image} id={id} title={title} price={price} />;
-            })}
+          <div>
+            <div className="buttons">
+              <button
+                onClick={() => {
+                  setGridView(true);
+                }}
+              >
+                <i class="fas fa-th-large"></i>
+              </button>
+              <button
+                onClick={() => {
+                  setGridView(false);
+                }}
+              >
+                <i class="fas fa-list"></i>
+              </button>
+              <h2
+                style={{
+                  fontSize: "18px",
+                  marginLeft: ".8rem",
+                  paddingLeft: "1rem",
+                  borderLeft: "1px solid black",
+                  color: "grey",
+                }}
+              >
+                {items.length} Products found
+              </h2>
+              <label
+                style={{
+                  marginLeft: "30rem",
+                  fontSize: "18px",
+                  marginTop: ".8rem",
+                }}
+                for="Sort"
+              >
+                Sort By :
+              </label>
+              <select
+                name="Sort"
+                id="Sort"
+                style={{
+                  marginLeft: "1rem",
+                  fontSize: "16px",
+                  outlineStyle: "unset",
+                  color: "grey",
+                  border: "none",
+                }}
+              >
+                <option>Price(Highest)</option>
+                <option>Price(Lowest)</option>
+                <option>Name(A-Z)</option>
+                <option>Name(Z-A)</option>
+              </select>
+            </div>
+            {gridview ? (
+              <div className="containerRight">
+                {items.map((item) => {
+                  const { image, id, title, price } = item;
+                  return (
+                    <GridCard
+                      image={image}
+                      id={id}
+                      title={title}
+                      price={price}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="listContainer">
+                {items.map((item) => {
+                  const { image, id, title, price, detail } = item;
+                  return (
+                    <ListCard
+                      image={image}
+                      id={id}
+                      title={title}
+                      price={price}
+                      details={detail}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </article>
       </Wrapper>
@@ -158,7 +239,7 @@ const Products = () => {
   );
 };
 
-const Card = ({ image, id, title, price }) => {
+const GridCard = ({ image, id, title, price }) => {
   return (
     <>
       <div className="content" key={id}>
@@ -171,6 +252,40 @@ const Card = ({ image, id, title, price }) => {
     </>
   );
 };
+
+const ListCard = ({ image, id, title, price, details }) => {
+  return (
+    <>
+      <div className="Listcontent" key={id}>
+        <img
+          src={image}
+          style={{
+            margin: "0",
+            marginRight: "3rem",
+            width: "24%",
+            height: "15rem",
+          }}
+        ></img>
+        <div className="Listinfo">
+          <h4 style={{ color: "grey", fontSize: "28px" }}> {title} </h4>
+          <h4 style={{ color: "#996a51", marginTop: "-2rem" }}> $ {price} </h4>
+          <p style={{ width: "95%", letterSpacing: "1px" }}>{details}</p>
+          <button
+            style={{
+              padding: "3px 5px",
+              backgroundColor: "#996a51",
+              color: "white",
+              outline: "unset",
+            }}
+          >
+            Details
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const Wrapper = styled.section`
   box-sizing: border-box;
   display: block;
@@ -248,6 +363,35 @@ const Wrapper = styled.section`
   .info h4 {
     font-size: 18px;
     font-weight: 500;
+  }
+  .listContainer {
+    width: 68rem;
+    height: 40rem;
+    overflow: scroll;
+  }
+  .Listcontent {
+    display: flex;
+    width: 100%;
+    height: 18rem;
+    margin: 2rem 0;
+    border-bottom: 2px solid grey;
+  }
+  .Listinfo {
+    width: 68%;
+    margin-top: -2rem;
+  }
+  .buttons {
+    margin-bottom: 1rem;
+    display: flex;
+  }
+  .buttons button {
+    margin-right: 0.4rem;
+    outline: unset;
+    border: none;
+    background-color: white;
+  }
+  i {
+    font-size: 20px;
   }
 `;
 export default Products;

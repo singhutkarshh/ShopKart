@@ -6,6 +6,7 @@ import Cart from "./pages/cart";
 import Home from "./pages/home";
 import Products from "./pages/products";
 import Error from "./pages/error";
+import Details from "./Components/details";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path="/products" exact>
           <Products />
+        </Route>
+        <Route path="/details" exact>
+          <Details />
         </Route>
         <Route path="*">
           <Error />
