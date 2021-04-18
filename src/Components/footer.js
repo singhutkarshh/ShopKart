@@ -9,7 +9,7 @@ const Footer = () => {
         <h5 style={{ color: "#996a51" }}> ShopKart </h5>
         <h5> All Rights Reserved </h5>
       </div>
-      <a href="https://github.com/singhutkarshh">Github Source code</a>
+      <a href="https://github.com/singhutkarshh/Shopkart">Github Source code</a>
       <h4>Developed by :- UTKARSH SINGH</h4>
     </Wrapper>
   );
