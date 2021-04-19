@@ -6,6 +6,11 @@ import { RouteComponent } from "./about";
 import { productData as Data } from "../utils/data";
 import Footer from "../Components/footer";
 
+if (localStorage.getItem("cart") === null) {
+  var x = [];
+  localStorage.setItem("cart", JSON.stringify(x));
+}
+
 const Products = () => {
   const [items, setItems] = useState(Data);
   const [search, setSearch] = useState("");
@@ -329,6 +334,7 @@ const Products = () => {
   }
   if (showDetails === true) {
     const {
+      id,
       title,
       image,
       price,
@@ -395,8 +401,22 @@ const Products = () => {
               </div>
               <p>{detail}</p>
               <hr></hr>
-              <button className="btn" style={{ marginBottom: "6rem" }}>
-                ADD TO CART
+              <button
+                className="btn"
+                style={{ marginBottom: "6rem" }}
+                onClick={() => {
+                  x = JSON.parse(localStorage.getItem("cart"));
+                  x.push(Data[id - 1]);
+                  localStorage.setItem("cart", JSON.stringify(x));
+                }}
+              >
+                <Link
+                  to="/cart"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {" "}
+                  ADD TO CART
+                </Link>
               </button>
             </div>
           </article>
