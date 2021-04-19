@@ -6,107 +6,142 @@ import NavBar from "../Components/navbar";
 import { RouteComponent } from "./about";
 
 const Cart = () => {
+  const [isEmpty, setIsEmpty] = useState("");
   var x = JSON.parse(localStorage.getItem("cart"));
+  useEffect(() => {
+    if (x.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+  }, []);
+  console.log(isEmpty);
   let MRP = 0;
   return (
     <>
       <NavBar />
       <RouteComponent value="Home / Cart" />
       <Wrapper>
-        <div className="header">
-          <ul>
-            <li className="item" style={{ width: "9%", paddingLeft: "3rem" }}>
-              Item
-            </li>
-            <li className="item" style={{}}>
-              Company
-            </li>
-            <li className="item" style={{ marginLeft: "16" }}>
-              Color
-            </li>
-            <li className="item" style={{ marginLeft: "17%" }}>
-              Subtotal
-            </li>
-          </ul>
-          <hr></hr>
-          {x.map((item) => {
-            const { title, image, price, Company, id, Colors } = item;
-            MRP += price;
-            return (
-              <>
-                <ul key={id}>
-                  <li className="item" style={{ width: "13%" }}>
-                    <img src={image}></img>
-                    <h3 style={{ color: "black" }}>{title}</h3>
-                  </li>
-                  <li
-                    className="item"
-                    style={{ marginTop: "2rem", width: "4%" }}
-                  >
-                    {Company}
-                  </li>
-                  <li
-                    className="item"
-                    style={{ marginLeft: "16%", marginTop: "2rem" }}
-                  >
-                    {Colors}
-                  </li>
-                  <li
-                    className="item"
-                    style={{
-                      marginLeft: "17%",
-                      marginTop: "2rem",
-                      color: "black",
-                    }}
-                  >
-                    $ {price}
-                  </li>
-                </ul>
-                <hr></hr>
-              </>
-            );
-          })}
-          <article>
-            <div className="leftContainer">
-              <button>
-                <Link to="/products" className="btn">
-                  Continue Shopping
-                </Link>
-              </button>
-            </div>
-            <div className="rightContainer">
-              <button
-                style={{
-                  backgroundColor: "Black",
-                  marginLeft: "60%",
-                }}
-                onClick={() => {
-                  localStorage.setItem("cart", JSON.stringify([]));
-                }}
+        {isEmpty ? (
+          <div className="emptyContainer">
+            <h1>CART IS EMPTY</h1>
+            <h3>Please Add some Items to the Cart ....!!!!</h3>
+            <button className="emptyBtn">
+              <Link
+                style={{ color: "white", textDecoration: "none" }}
+                to="/products"
               >
-                <Link to="/products" className="btn">
-                  Clear Shopping Cart
-                </Link>
-              </button>
-              <div className="innerContainer">
-                <div className="arrange" style={{ marginTop: "1rem" }}>
-                  <h3>Sub-Total : </h3>
-                  <h3 style={{ marginLeft: "3rem" }}> $ {parseInt(MRP)} </h3>
-                </div>
-                <div className="arrange">
-                  <h3>Shipping Charges : </h3>
-                  <h3 style={{ marginLeft: "3rem" }}>N / A</h3>
-                </div>
-                <hr></hr>
-                <div className="arrange set">
-                  <h3>Order Total : </h3>
-                  <h3 style={{ marginLeft: "3rem" }}>$ {parseInt(MRP)}</h3>
-                </div>
+                Add Items
+              </Link>
+            </button>
+          </div>
+        ) : (
+          <div className="header">
+            <ul>
+              <li className="item" style={{ width: "9%", paddingLeft: "3rem" }}>
+                Item
+              </li>
+              <li className="item" style={{}}>
+                Company
+              </li>
+              <li className="item" style={{ marginLeft: "16" }}>
+                Color
+              </li>
+              <li className="item" style={{ marginLeft: "17%" }}>
+                Subtotal
+              </li>
+            </ul>
+            <hr></hr>
+            {x.map((item) => {
+              const { title, image, price, Company, id, Colors } = item;
+              MRP += price;
+              return (
+                <>
+                  <ul key={id}>
+                    <li className="item" style={{ width: "13%" }}>
+                      <img src={image}></img>
+                      <h3 style={{ color: "black" }}>{title}</h3>
+                    </li>
+                    <li
+                      className="item"
+                      style={{ marginTop: "2rem", width: "4%" }}
+                    >
+                      {Company}
+                    </li>
+                    <li
+                      className="item"
+                      style={{ marginLeft: "16%", marginTop: "2rem" }}
+                    >
+                      {Colors}
+                    </li>
+                    <li
+                      className="item"
+                      style={{
+                        marginLeft: "17%",
+                        marginTop: "2rem",
+                        color: "black",
+                      }}
+                    >
+                      $ {price}
+                    </li>
+                  </ul>
+                  <hr></hr>
+                </>
+              );
+            })}
+            <article>
+              <div className="leftContainer">
+                <button>
+                  <Link to="/products" className="btn">
+                    Continue Shopping
+                  </Link>
+                </button>
               </div>
-              <button className="orderBtn">Order Today</button>
-            </div>
-          </article>
-        </div>
+              <div className="rightContainer">
+                <button
+                  style={{
+                    backgroundColor: "Black",
+                    marginLeft: "60%",
+                  }}
+                  onClick={() => {
+                    localStorage.setItem("cart", JSON.stringify([]));
+                  }}
+                >
+                  <Link to="/products" className="btn">
+                    Clear Shopping Cart
+                  </Link>
+                </button>
+                <div className="innerContainer">
+                  <div className="arrange" style={{ marginTop: "1rem" }}>
+                    <h3>Sub-Total : </h3>
+                    <h3 style={{ marginLeft: "3rem" }}> $ {parseInt(MRP)} </h3>
+                  </div>
+                  <div className="arrange">
+                    <h3>Shipping Charges : </h3>
+                    <h3 style={{ marginLeft: "3rem" }}>N / A</h3>
+                  </div>
+                  <hr></hr>
+                  <div className="arrange set">
+                    <h3>Order Total : </h3>
+                    <h3 style={{ marginLeft: "3rem" }}>$ {parseInt(MRP)}</h3>
+                  </div>
+                </div>
+                <button className="orderBtn">
+                  <Link
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      fontSize: "22px",
+                    }}
+                    to="/login"
+                  >
+                    Order Today
+                  </Link>
+                </button>
+              </div>
+            </article>
+          </div>
+        )}
       </Wrapper>
       <Footer />
     </>
@@ -116,6 +151,7 @@ const Cart = () => {
 const Wrapper = styled.section`
   display: block;
   box-sizing: border-box;
+
   .header {
     width: 80%;
     margin-top: 2rem;
@@ -197,6 +233,28 @@ const Wrapper = styled.section`
   .orderBtn {
     margin-top: 2rem;
     margin-left: 50%;
+  }
+  .emptyContainer {
+    height: 26rem;
+    width: 100%;
+  }
+  .emptyContainer h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+  .emptyContainer h3 {
+    font-size: 20px;
+    text-align: center;
+    color: grey;
+  }
+  .emptyBtn {
+    font-size: 25px;
+    margin-top: 3rem;
+    margin-left: 45%;
+  }
+  .emptyBtn:hover {
+    color: #916249;
+    background-color: #c7b2a7;
   }
 `;
 export default Cart;

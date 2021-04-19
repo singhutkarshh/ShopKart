@@ -7,6 +7,7 @@ import Home from "./pages/home";
 import Products from "./pages/products";
 import Error from "./pages/error";
 import Details from "./Components/details";
+import Login from "./pages/login";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/details" exact>
           <Details />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
         </Route>
         <Route path="*">
           <Error />

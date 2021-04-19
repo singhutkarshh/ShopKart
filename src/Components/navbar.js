@@ -35,7 +35,9 @@ const NavBar = () => {
           </Link>
         </h1>
         <h1>
-          Login <i class="fas fa-user-plus" />
+          <Link to="/login" className="goLinks">
+            Login <i class="fas fa-user-plus" />
+          </Link>
         </h1>
       </div>
     </Wrapper>

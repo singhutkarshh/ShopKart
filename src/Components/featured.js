@@ -77,7 +77,9 @@ const Wrapper = styled.section`
     height: 15rem;
     background-position: center;
   }
-
+  .container:hover {
+    transform: scale(1.1);
+  }
   p {
     display: flex;
   }

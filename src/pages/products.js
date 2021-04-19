@@ -17,9 +17,11 @@ const Products = () => {
   const [gridview, setGridView] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const [detailInfo, setDetailInfo] = useState(items[0]);
+  const [notify, setNotify] = useState(false);
 
   const [dropdown, setDropdown] = useState("a-z");
 
+  //drop-down filter
   useEffect(() => {
     if (dropdown === "decrease") {
       let x = items.sort((a, b) => {
@@ -47,6 +49,13 @@ const Products = () => {
       setItems(x.reverse());
     }
   }, [dropdown]);
+
+  //notification on adding to cart
+  useEffect(() => {
+    setTimeout(() => {
+      setNotify(false);
+    }, 4000);
+  }, [notify]);
 
   if (showDetails === false) {
     return (
@@ -257,7 +266,6 @@ const Products = () => {
                             onClick={() => {
                               setDetailInfo(Data[id - 1]);
                               setShowDetails(true);
-                              console.log(detailInfo);
                             }}
                           ></img>
                           <div className="info">
@@ -408,6 +416,7 @@ const Products = () => {
                   x = JSON.parse(localStorage.getItem("cart"));
                   x.push(Data[id - 1]);
                   localStorage.setItem("cart", JSON.stringify(x));
+                  setNotify(true);
                 }}
               >
                 <Link
@@ -421,6 +430,26 @@ const Products = () => {
             </div>
           </article>
         </WrapperDetails>
+        {notify && (
+          <div
+            style={{
+              width: "100%",
+              height: "4rem",
+              backgroundColor: "lightgreen",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "20px",
+                paddingTop: "1rem",
+                textAlign: "center",
+                fontWeight: "500",
+              }}
+            >
+              SUCCESS ! Your item has been added , <strong> Check Cart</strong>
+            </h3>
+          </div>
+        )}
         <Footer />
       </>
     );
@@ -497,6 +526,9 @@ const Wrapper = styled.section`
     height: 80%;
     width: 100%;
     margin-bottom: -1rem;
+  }
+  img:hover {
+    transform: scale(1.1);
   }
   .info {
     display: flex;
